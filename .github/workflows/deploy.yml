@@ -14,11 +14,11 @@ jobs:
           node-version: 16.x
       - run: npm install
       - name: Build
-        run: npm run build
+        run: npm run build && npm run export
         env:
           REACT_APP_NETWORK_URL: ${{ secrets.REACT_APP_NETWORK_URL }}
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend/.next
+          publish_dir: ./out
