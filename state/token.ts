@@ -76,14 +76,9 @@ function useToken() {
    * @returns {number} of tokens claimable
    */
   const getAirdropAmount = (address: string): number => {
-    // If address is in airdrop
-    if (address in config.airdrop) {
-      // Return number of tokens available
-      return config.airdrop[address];
-    }
+    const checksumAddress = ethers.utils.getAddress(address);
 
-    // Else, return 0 tokens
-    return 0;
+    return config.airdrop[checksumAddress] || 0;
   };
 
   /**
@@ -140,6 +135,7 @@ function useToken() {
       // Collect number of tokens for address
       const tokens = getAirdropAmount(address);
       setNumTokens(tokens);
+      console.log(tokens)
 
       // Collect claimed status for address, if part of airdrop (tokens > 0)
       if (tokens > 0) {
