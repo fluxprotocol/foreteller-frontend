@@ -99,13 +99,15 @@ function useToken() {
       throw new Error("Not Authenticated");
     }
 
+    const checksumAddress = ethers.utils.getAddress(address);
+
     // Collect token contract
     const token: ethers.Contract = getContract();
     // Get properly formatted address
     const formattedAddress: string = ethers.utils.getAddress(address);
     // Get tokens for address
     const numTokens: string = ethers.utils
-      .parseUnits(config.airdrop[address].toString(), config.decimals)
+      .parseUnits(config.airdrop[checksumAddress].toString(), config.decimals)
       .toString();
 
     // Generate hashed leaf from address
